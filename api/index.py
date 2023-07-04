@@ -5,6 +5,7 @@ import pandas as pd
 from bs4 import BeautifulSoup as bs
 import lxml
 from flask import Flask
+from flask_cors import CORS, cross_origin
 #from dictionary_scraper import process_word
 
 app=Flask(__name__)
@@ -78,6 +79,7 @@ class process_word:
 
 @app.route('/')
 @app.route('/<string:word>')
+@cross_origin()
 
 
 def home(word=" "):
