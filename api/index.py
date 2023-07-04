@@ -19,7 +19,7 @@ class process_word:
         self.meanings = []
         self.synonyms = []
         self.antonyms = []
-        self.sentance = []
+        self.sentence = []
 
     def get_meanings(self):
         webpage = requests.get(self.url_1).text
@@ -48,7 +48,7 @@ class process_word:
         self.synonyms = list(set(self.synonyms))  # removing duplicate values if any
         self.antonyms = list(set(self.antonyms))  # removing duplicate values if any
 
-    def get_sentance_applications(self):
+    def get_sentence_applications(self):
         webpage = requests.get(self.url_3).text
         soup = bs(webpage, 'lxml')
         res = soup.find_all('div', class_="sentence-item")
@@ -56,7 +56,7 @@ class process_word:
         for i in res:
             if sentance_max_count > 0:
                 for j in i.find_all('p'):
-                    self.sentance.append(j.text.strip())
+                    self.sentence.append(j.text.strip())
             else:
                 break
             sentance_max_count -= 1
@@ -64,7 +64,7 @@ class process_word:
     def execute(self):
         self.get_meanings()
         self.get_synonyms_antonyms()
-        self.get_sentance_applications()
+        self.get_sentence_applications()
 
     def get_output(self):
         self.execute()
@@ -73,7 +73,7 @@ class process_word:
             "meanings": self.meanings,
             "synonyms": self.synonyms,
             "antonyms": self.antonyms,
-            "sentance_application": self.sentance
+            "sentence_application": self.sentence
         }
 
 @app.route('/')
